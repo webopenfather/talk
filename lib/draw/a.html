@@ -1,0 +1,71 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8" />
+<title>draw demo</title>
+</head>
+<body>
+<div class="show"></div>
+<canvas id="the_stage" width="600" height="400" style="border:1px solid #999;">您的浏览器不支持canvas!</canvas>
+ 
+<script>
+function Draw(arg) {
+    if (arg.nodeType) {
+        this.canvas = arg;
+    } else if (typeof arg == 'string') {
+        this.canvas = document.getElementById(arg);
+    } else {
+        return;
+    }
+    this.init();
+}
+Draw.prototype = {
+    init: function() {
+        let that = this;
+        if (!this.canvas.getContext) {
+            return;
+        }
+        this.context = this.canvas.getContext('2d');
+        this.canvas.onselectstart = function () {
+            return false;  //修复chrome下光标样式的问题
+        };
+        this.canvas.onmousedown = function(event) {
+            that.drawBegin(event);
+        };
+    },
+    drawBegin: function(e) {
+        let that = this,
+            stage_info = this.canvas.getBoundingClientRect();
+        window.getSelection ? window.getSelection().removeAllRanges() :
+                                document.selection.empty();  //清除文本的选中
+        this.context.moveTo(
+            e.clientX - stage_info.left,
+            e.clientY - stage_info.top
+        );
+        document.onmousemove = function(event) {
+            that.drawing(event);
+        };
+        
+        // 页面显示图片
+        document.onmouseup = () => {
+            let base64 = this.canvas.toDataURL();
+            let img = new Image();
+            img.src = base64;
+            document.querySelector(".show").appendChild(img);
+
+            document.onmousemove = document.onmouseup = null;
+        };
+    },
+    drawing: function(e) {
+        let stage_info = this.canvas.getBoundingClientRect();
+        this.context.lineTo(
+            e.clientX - stage_info.left,
+            e.clientY - stage_info.top
+        );
+        this.context.stroke();
+    }
+};
+let draw = new Draw('the_stage');
+</script>
+</body>
+</html>

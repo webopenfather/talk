@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<meta charset="utf-8">
+		<title>聊天室 (直播间)</title> 
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+		<link rel="stylesheet" type="text/css" href="css/index.css" />
+
+		<link rel="stylesheet" href="./lib/emoji/lib/css/jquery.mCustomScrollbar.min.css"/>
+		<link rel="stylesheet" href="./lib/emoji/dist/css/jquery.emoji.css"/>
+	</head>
+	<body>
+		<div class="container">
+			<!-- 群聊登录界面 page1 -->
+			<div class="chat-login-box">
+				<div class="header">
+					<h2>聊天室 (直播间)</h2>
+				</div>
+				<div class="content">
+					<!-- 第一个输入框 -->
+					<div class="input-info-box">
+						<div class="input-notice-box">
+							<input class="input-notice" id="userName" type="text" placeholder="请输入昵称" />
+						</div>
+					</div>
+					<!-- 第二个输入框 -->
+					<div class="chooese-avatar-box">
+						<div class="choose-avatar-box-notice">
+							<span class="common-notice">请选择头像</span>
+							<span class="common-notice error-notice">请选一个头像哦!!! </span>
+						</div>
+						<div class="choose-avatar-content-box">
+							<div class="choose-avatar-content">
+								<div class="avatar-box">
+									<img class="avatar" src="images/1.png">
+								</div>
+								<div class="avatar-box">
+									<img class="avatar" src="images/2.png">
+								</div>
+								<div class="avatar-box">
+									<img class="avatar" src="images/3.png">
+								</div>
+								<div class="avatar-box">
+									<img class="avatar" src="images/4.png">
+								</div>
+								<div class="avatar-box">
+									<img class="avatar" src="images/5.png">
+								</div>
+								<div class="avatar-box">
+									<img class="avatar" src="images/6.png">
+								</div>
+								<div class="avatar-box">
+									<img class="avatar" src="images/7.png">
+								</div>
+								<div class="avatar-box">
+									<img class="avatar" src="images/8.png">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 第三个输入框 -->
+					<div class="chooese-chatRoom-box">
+						<span class="common-notice">请选择聊天室</span>
+						<div class="choose-chatRoom-list">
+							<div class="chatRoom-item">
+								<div class="chatRoom" tv="程序员集散地" >程序员集散地</div>
+								<div class="chatRoom" tv="海绵宝宝专场" m3u8="https://youku.cdn7-okzy.com/20200327/18235_0dd4aea6/index.m3u8">海绵宝宝专场</div>
+								<div class="chatRoom" tv="康哥直播会" m3u8="http://pili-live-hls.tmp00002.zhaodashen.cn/live00002/kangge.m3u8">康哥直播会</div>
+								<div class="chatRoom" tv="你画我猜" type='draw'>你画我猜</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<!-- 聊天室界面 page2 -->
+			<div class="chatRoom-box">
+				<!-- 直播 -->
+				<link href="./lib/videojs/video-js.css" rel="stylesheet">
+				<script src="./lib/videojs/video.js"></script>
+				<script src="./lib/videojs/videojs-contrib-hls.min.js"></script>
+				<div class="live">
+					<video style="width:300px; height:200px; display: block;" id="video" class="video-js vjs-default-skin vjs-big-play-centered" controls data-setup='{}'>
+						<source id="source" src="https://youku.cdn7-okzy.com/20200327/18235_0dd4aea6/index.m3u8" type="application/x-mpegURL"></source>
+					</video>
+					<canvas style="display:none;" width="300" height="200" >您的浏览器不支持canvas!</canvas>
+				</div>
+
+				<!-- 房间名 -->
+				<div class="chatRoom-header" id="chatRoom-header">
+					<div class="current-chatRoom-icon">
+						<img class="icon" src="images/exit.png">
+					</div>
+					<div class="current-chatRoom-name">聊天室名称</div>
+				</div>
+				<div class="current-online-num-box">
+					<!-- 当前在线人数 -->
+					<div class="current-num">0</div>
+					<!-- 当前房间的在线人数头像 -->
+				</div>
+				<div class="chatRoom-content-box">
+					<!-- 上下线消息 -->
+					<!-- 发送的消息 -->
+				</div>
+				<div class="chatRoom-footer">
+					<div class="input-send-box">
+						<!-- <input class="input" id="message" type="text" placeholder="说点什么" /> -->
+						<div class="input" id="message" contenteditable="true"></div>
+						<div class="upload-btn">
+							<img class="upload-icon" src="images/upload.png"/>
+						</div>
+					</div>
+					<div class="icon heart-btn">
+						<img class="heart-btn-icon" src="images/handle-heart.png" />
+					</div>
+					<div class="icon rocket-btn">
+						<img class="rocket-btn-icon" src="images/rokect.png" />
+					</div>
+					<div class="icon face">
+						<img  id="face" width="36" height="36" src="images/face.png" />
+					</div>
+					<div class="icon upload">
+						<img class="uploadImg" width="36" height="36" src="images/upload2.png" />
+						<input type="file" name="" id="upload" style="display:none">
+					</div>
+				</div>
+				<!-- 火箭和比心 -->
+				<div class="rocket">
+					<img class="rocket-icon" src="images/rokect.png">
+				</div>
+				<div class="heart">
+					<img class="heart-icon" src="images/heart.png">
+					<img class="heart-icon" src="images/heart.png">
+					<img class="heart-icon" src="images/heart.png">
+					<img class="heart-icon" src="images/heart.png">
+					<img class="heart-icon" src="images/heart.png">
+				</div>
+			</div>
+	
+			<div class="toast"></div>
+		</div>
+		<script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script src="./lib/emoji/lib/script/jquery.mousewheel-3.0.6.min.js"></script>
+		<script src="./lib/emoji/lib/script/jquery.mCustomScrollbar.min.js"></script>
+		<script src="./lib/emoji/dist/js/jquery.emoji.min.js"></script>
+		<script src="./lib/layer.js"></script>
+		<script src="./lib/controller.js"></script>
+		<script src="./lib/client.js"></script>
+		<script src="./lib/draw/index.js"></script>
+		<script>
+		// $(function() {
+		//   // 切换界面
+		//   $('.chat-login-box').hide()
+		//   $('.chatRoom-box').show()
+		// })
+		</script>		
+	</body>
+</html>
